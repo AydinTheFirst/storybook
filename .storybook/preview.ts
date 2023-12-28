@@ -4,6 +4,13 @@ import { withThemeByClassName } from "@storybook/addon-themes";
 
 const preview: Preview = {
   parameters: {
+    backgrounds: {
+      default: "dark",
+      values: [
+        { name: "light", value: "rgb(241 245 249)" },
+        { name: "dark", value: "rgb(17 24 39)" },
+      ],
+    },
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
@@ -22,6 +29,6 @@ export const decorators = [
       light: "light",
       dark: "dark",
     },
-    defaultTheme: "light",
+    defaultTheme: "dark",
   }),
 ];
