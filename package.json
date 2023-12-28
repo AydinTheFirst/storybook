@@ -4,20 +4,23 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "serve storybook-static -l 3000",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "npm run build-storybook",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=chpt_a56129a305c607c"
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "autoprefixer": "^10.4.16",
+    "dayjs": "^1.11.10",
     "flowbite-react": "^0.7.2",
     "postcss": "^8.4.32",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
+    "react-tailwindcss-datepicker": "^1.6.6",
     "tailwindcss": "^3.4.0"
   },
   "devDependencies": {
@@ -41,6 +44,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "eslint-plugin-storybook": "^0.6.15",
+    "serve": "^14.2.1",
     "storybook": "7.6.6",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
