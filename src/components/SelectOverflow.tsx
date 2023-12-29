@@ -1,16 +1,13 @@
-import {
-  Button,
-  Dropdown,
-  FileInput,
-  Label,
-  ListGroup,
-  Modal,
-} from "flowbite-react";
+import { Button, FileInput, Label, ListGroup, Modal } from "flowbite-react";
 import { useState } from "react";
 
 import { IconType } from "react-icons";
-
 import { FaCloudDownloadAlt, FaPaperPlane } from "react-icons/fa";
+
+import "./SelectOverflow.css";
+import { Input } from "./Input";
+import { baseClass, textInputTheme } from "../contants";
+import { ClearButton } from "./ClearButton";
 
 interface Props {
   id: string;
@@ -21,7 +18,8 @@ interface Props {
   icon?: IconType;
   onClick?: () => void;
 }
-const options = [
+
+const optionlist = [
   "avatar.png",
   "background.png",
   "icon.png",
@@ -34,29 +32,68 @@ const options = [
 ];
 
 export const SelectOverflow: React.FC<Props> = (props) => {
-  const [openModal, setOpenModal] = useState(false);
-
   const [value, setValue] = useState<string>("");
+  const [visible, setVisible] = useState<boolean>(false);
+  const [options, setOptions] = useState<string[]>(optionlist);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const handleClick = (e: string) => {
+    setValue(e);
+    setVisible(false);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    const filteredOptions = optionlist.filter((option) =>
+      option.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+
+    setOptions(filteredOptions);
+  };
+
+  const handleOpen = () => {
+    setOpenModal(true);
+    setVisible(false);
+  };
 
   return (
     <>
       <div className="mb-2 block">
-        <Label htmlFor={props.id} value={props.label} />
+        <Label htmlFor={props.id} value={"label"} />
       </div>
-      <div className={"flex gap-1 items-center"}>
-        <Dropdown label={value || "Please Select"}>
-          <div style={{ overflow: "auto", height: "9rem" }}>
-            {options.map((option) => (
-              <Dropdown.Item onClick={() => setValue(option)}>
-                {option}
-              </Dropdown.Item>
-            ))}
+      <div className="flex gap-1 items-center">
+        <div className="relative">
+          <div className={baseClass}>
+            <Input
+              type="text"
+              theme={textInputTheme}
+              value={value}
+              placeholder="Search"
+              className="mb-1"
+              onFocus={() => setVisible(true)}
+              onChange={handleChange}
+            />
+            <ClearButton onClick={() => setValue("")} />
           </div>
-        </Dropdown>
 
-        <Button size={props.size} onClick={() => setOpenModal(true)}>
-          {props.buttonLabel}
-        </Button>
+          {visible && (
+            <ListGroup
+              className="absolute w-full overflow-auto"
+              style={{ maxHeight: "10rem" }}
+            >
+              <ListGroup.Item icon={FaPaperPlane} onClick={handleOpen}>
+                Upload your own
+              </ListGroup.Item>
+              {options.map((option, i) => (
+                <ListGroup.Item key={i} onClick={() => handleClick(option)}>
+                  {option}
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          )}
+        </div>
+
+        <Button onClick={() => alert(value)}>Submit</Button>
       </div>
 
       <DropdownModal
@@ -109,9 +146,13 @@ const DropdownModal = (props: DropdownModalProps) => {
             </ListGroup>
 
             <br />
-            <Button color="failure" onClick={() => setSelectedFiles(null)}>
-              Clear selected
-            </Button>
+
+            <div className="flex gap-5">
+              <Button color="failure" onClick={() => setSelectedFiles(null)}>
+                Clear selected
+              </Button>
+              <Button onClick={() => setOpenModal(false)}>Done</Button>
+            </div>
           </>
         )) || <Dropzone handleUpload={handleUpload} />}
       </Modal.Body>
@@ -126,7 +167,7 @@ const Dropzone = (props: { handleUpload: any }) => {
         htmlFor={"dropzone-file"}
         className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
       >
-        <div className="flex flex-col items-center justify-center pb-6 pt-5">
+        <div className="flex flex-col items-center justify-center pb-6 pt-5 mb-5">
           <div className="text-3xl">
             <FaCloudDownloadAlt />
           </div>

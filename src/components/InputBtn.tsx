@@ -13,6 +13,7 @@ interface Props {
   icon?: IconType;
   onClick?: () => void;
 }
+
 export const InputButton: React.FC<Props> = (props) => {
   return (
     <div>

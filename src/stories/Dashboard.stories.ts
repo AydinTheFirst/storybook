@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Dashboard as Component } from "../assets/pages/Dashboard";
+import { Dashboard as Component } from "../pages/Dashboard";
 
 const meta: Meta<typeof Component> = {
   title: "Pages/Dashboard",

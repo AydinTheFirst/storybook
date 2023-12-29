@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: "class",
+  darkMode: ["class"],
   content: [
     "node_modules/flowbite-react/lib/esm/**/*.js",
     "node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
@@ -8,5 +8,4 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
 };

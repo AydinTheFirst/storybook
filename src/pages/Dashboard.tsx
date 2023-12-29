@@ -9,7 +9,7 @@ import {
   HiUser,
   HiViewBoards,
 } from "react-icons/hi";
-import { AvatarBox } from "../../components/AvatarBox";
+import { AvatarBox } from "../components/AvatarBox";
 
 export const Dashboard = () => {
   document.body.classList.add("overflow-hidden");
