@@ -2,12 +2,7 @@ import { Button, FileInput, Label, ListGroup, Modal } from "flowbite-react";
 import { useState } from "react";
 
 import { IconType } from "react-icons";
-import {
-  FaAngleDown,
-  FaArrowDown,
-  FaCloudDownloadAlt,
-  FaPaperPlane,
-} from "react-icons/fa";
+import { FaAngleDown, FaCloudDownloadAlt, FaPaperPlane } from "react-icons/fa";
 
 import "./SelectOverflow.css";
 import { Input } from "./Input";
