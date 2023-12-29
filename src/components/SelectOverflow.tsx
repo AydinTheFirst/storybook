@@ -2,11 +2,16 @@ import { Button, FileInput, Label, ListGroup, Modal } from "flowbite-react";
 import { useState } from "react";
 
 import { IconType } from "react-icons";
-import { FaCloudDownloadAlt, FaPaperPlane } from "react-icons/fa";
+import {
+  FaAngleDown,
+  FaArrowDown,
+  FaCloudDownloadAlt,
+  FaPaperPlane,
+} from "react-icons/fa";
 
 import "./SelectOverflow.css";
 import { Input } from "./Input";
-import { baseClass, textInputTheme } from "../contants";
+import { baseClass, buttonTheme, textInputTheme } from "../contants";
 import { ClearButton } from "./ClearButton";
 
 interface Props {
@@ -56,6 +61,10 @@ export const SelectOverflow: React.FC<Props> = (props) => {
     setVisible(false);
   };
 
+  const handleDelete = () => {
+    setValue("");
+    setOptions(optionlist);
+  };
   return (
     <>
       <div className="mb-2 block">
@@ -73,27 +82,35 @@ export const SelectOverflow: React.FC<Props> = (props) => {
               onFocus={() => setVisible(true)}
               onChange={handleChange}
             />
-            <ClearButton onClick={() => setValue("")} />
+
+            <div className="absolute right-0">
+              {(value.length > 0 && <ClearButton onClick={handleDelete} />) || (
+                <AngleDownBtn onClick={() => setVisible(!visible)} />
+              )}
+            </div>
           </div>
 
           {visible && (
             <ListGroup
-              className="absolute w-full overflow-auto"
+              className="absolute w-full overflow-auto z-50"
               style={{ maxHeight: "10rem" }}
             >
-              <ListGroup.Item icon={FaPaperPlane} onClick={handleOpen}>
-                Upload your own
-              </ListGroup.Item>
-              {options.map((option, i) => (
-                <ListGroup.Item key={i} onClick={() => handleClick(option)}>
-                  {option}
-                </ListGroup.Item>
-              ))}
+              {(options.length > 0 &&
+                options.map((option, i) => (
+                  <ListGroup.Item key={i} onClick={() => handleClick(option)}>
+                    {option}
+                  </ListGroup.Item>
+                ))) || <ListGroup.Item>No Result</ListGroup.Item>}
             </ListGroup>
           )}
         </div>
 
         <Button onClick={() => alert(value)}>Submit</Button>
+      </div>
+
+      <div>
+        <br />
+        <Button onClick={handleOpen}>Add new record</Button>
       </div>
 
       <DropdownModal
@@ -102,6 +119,15 @@ export const SelectOverflow: React.FC<Props> = (props) => {
         setValue={setValue}
       />
     </>
+  );
+};
+
+const AngleDownBtn = (props: { onClick: () => void }) => {
+  return (
+    <Button {...props} color="default" theme={buttonTheme} title="Clear">
+      <FaAngleDown />
+      <span className="sr-only">Close</span>
+    </Button>
   );
 };
 

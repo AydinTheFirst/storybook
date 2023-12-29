@@ -20,3 +20,10 @@ export const selectInputTheme: CustomFlowbiteTheme["select"] = {
     },
   },
 };
+
+export const buttonTheme: CustomFlowbiteTheme["button"] = {
+  color: {
+    default:
+      "text-gray-400 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white",
+  },
+};
