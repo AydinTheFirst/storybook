@@ -1,7 +1,8 @@
-import { Button, Label, TextInput as TextInput_ } from "flowbite-react";
+import { Label, TextInput as TextInput_ } from "flowbite-react";
 import React from "react";
 
 import { IconType } from "react-icons";
+import { ClearButton } from "./ClearButton";
 
 interface Props {
   id: string;
@@ -11,7 +12,7 @@ interface Props {
   buttonLabel?: string;
   placeholder?: string;
   icon?: IconType;
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 export const InputButton: React.FC<Props> = (props) => {
@@ -20,7 +21,7 @@ export const InputButton: React.FC<Props> = (props) => {
       <div className="mb-2 block">
         <Label htmlFor={props.id} value={props.label} />
       </div>
-      <div className={"flex gap-1 items-center"}>
+      <div className={"relative"}>
         <TextInput_
           id={props.id}
           name={props.id}
@@ -29,7 +30,9 @@ export const InputButton: React.FC<Props> = (props) => {
           icon={props.icon}
           placeholder={props.placeholder}
         />
-        <Button size={props.size}>{props.buttonLabel}</Button>
+        <div className="absolute top-0 right-0">
+          <ClearButton onClick={props.onClick} />
+        </div>{" "}
       </div>
     </div>
   );

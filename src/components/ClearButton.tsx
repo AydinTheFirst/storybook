@@ -11,7 +11,13 @@ interface Props {
 export const ClearButton: React.FC<Props> = (props) => {
   return (
     <Tooltip content="Clear Input">
-      <Button {...props} color="default" theme={buttonTheme} title="Clear">
+      <Button
+        size={"lg"}
+        {...props}
+        color="default"
+        theme={buttonTheme}
+        title="Clear"
+      >
         <FaBackspace />
         <span className="sr-only">Close</span>
       </Button>
